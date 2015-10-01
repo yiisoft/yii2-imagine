@@ -148,8 +148,12 @@ class BaseImage
      */
     public static function thumbnail($filename, $width, $height, $mode = ManipulatorInterface::THUMBNAIL_OUTBOUND)
     {
-        $box = new Box($width, $height);
         $img = static::getImagine()->open(Yii::getAlias($filename));
+
+        $ratio = $img->getSize()->getWidth() / $img->getSize()->getHeight();
+        list($width, $height) = static::countNullableSide($ratio, $width, $height);
+        
+        $box = new Box($width, $height);
 
         if (($img->getSize()->getWidth() <= $box->getWidth() && $img->getSize()->getHeight() <= $box->getHeight()) || (!$box->getWidth() && !$box->getHeight())) {
             return $img->copy();
@@ -255,5 +259,26 @@ class BaseImage
         $image->paste($img, $pasteTo);
 
         return $image;
+    }
+    
+    /**
+     * Count nullable size of image by other side and ratio.
+     *
+     * @param float $ratio
+     * @param int $width = null
+     * @param int $height = null
+     * @return array [$width, $height]
+     */
+    protected static function countNullableSide($ratio, $width = null, $height = null)
+    {
+        if ($width !== null && $height === null) {
+            $height = ceil($width / $ratio);
+        } elseif ($width === null && $height !== null) {
+            $width = ceil($height * $ratio);
+        } elseif ($width === null && $height === null) {
+            throw new InvalidParamException("Width and height cannot be null at same time.");
+        }
+
+        return [$width, $height];
     }
 }
