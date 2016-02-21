@@ -4,6 +4,7 @@ namespace yiiunit\extensions\imagine;
 use Yii;
 use yii\helpers\FileHelper;
 use yii\imagine\Image;
+use Imagine\Image\ImageInterface;
 use Imagine\Image\Point;
 
 abstract class AbstractImageTest extends TestCase
@@ -77,9 +78,39 @@ abstract class AbstractImageTest extends TestCase
 
     public function testThumbnail()
     {
+        // THUMBNAIL_OUTBOUND mode.
         $img = Image::thumbnail($this->imageFile, 120, 120);
 
         $this->assertEquals(120, $img->getSize()->getWidth());
+        $this->assertEquals(120, $img->getSize()->getHeight());
+
+        // THUMBNAIL_INSET mode. Missing thumbnail part is filled with background so dimensions are exactly
+        // the ones specified.
+        $img = Image::thumbnail($this->imageFile, 120, 120, ImageInterface::THUMBNAIL_INSET);
+
+        $this->assertEquals(120, $img->getSize()->getWidth());
+        $this->assertEquals(120, $img->getSize()->getHeight());
+
+        // Height omitted and is calculated based on original image aspect ratio regardless of the mode.
+        $img = Image::thumbnail($this->imageFile, 120, null);
+
+        $this->assertEquals(120, $img->getSize()->getWidth());
+        $this->assertEquals(62, $img->getSize()->getHeight());
+
+        $img = Image::thumbnail($this->imageFile, 120, null, ImageInterface::THUMBNAIL_INSET);
+
+        $this->assertEquals(120, $img->getSize()->getWidth());
+        $this->assertEquals(62, $img->getSize()->getHeight());
+
+        // Width omitted and is calculated based on original image aspect ratio regardless of the mode.
+        $img = Image::thumbnail($this->imageFile, null, 120);
+
+        $this->assertEquals(234, $img->getSize()->getWidth());
+        $this->assertEquals(120, $img->getSize()->getHeight());
+
+        $img = Image::thumbnail($this->imageFile, null, 120, ImageInterface::THUMBNAIL_INSET);
+
+        $this->assertEquals(234, $img->getSize()->getWidth());
         $this->assertEquals(120, $img->getSize()->getHeight());
     }
 

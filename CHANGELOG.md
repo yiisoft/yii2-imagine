@@ -4,6 +4,9 @@ Yii Framework 2 imagine extension Change Log
 2.0.4 under development
 -----------------------
 
+- Enh #3: `Image::thumbnail()` could now automatically calculate thumbnail dimensions based on aspect ratio of original
+  image if only width or only height is specified. `Image::$thumbnailBackgroundColor` and
+  `Image::$thumbnailBackgroundAlpha` are introduced to be able to configure fill color of thumbnails (HaruAtari, samdark)
 
 2.0.3 March 01, 2015
 --------------------

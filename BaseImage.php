@@ -9,6 +9,7 @@ namespace yii\imagine;
 
 use Yii;
 use Imagine\Image\Box;
+use Imagine\Image\BoxInterface;
 use Imagine\Image\Color;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\ImagineInterface;
@@ -53,6 +54,21 @@ class BaseImage
      */
     private static $_imagine;
 
+    /**
+     * @var string background color to use when creating thumbnails in `ImageInterface::THUMBNAIL_INSET` mode with
+     * both width and height specified. Default is white.
+     *
+     * @since 2.0.4
+     */
+    public static $thumbnailBackgroundColor = 'FFF';
+
+    /**
+     * @var string background alpha (transparency) to use when creating thumbnails in `ImageInterface::THUMBNAIL_INSET`
+     * mode with both width and height specified. Default is solid.
+     *
+     * @since 2.0.4
+     */
+    public static $thumbnailBackgroundAlpha = 100;
 
     /**
      * Returns the `Imagine` object that supports various image manipulations.
@@ -138,42 +154,53 @@ class BaseImage
     }
 
     /**
-     * Creates a thumbnail image. The function differs from `\Imagine\Image\ImageInterface::thumbnail()` function that
-     * it keeps the aspect ratio of the image.
+     * Creates a thumbnail image.
+     *
+     * If one of thumbnail dimensions is set to `null`, another one is calculated automatically based on aspect ratio of
+     * original image. Note that calculated thumbnail dimension may vary depending on the source image in this case.
+     *
+     * If both dimensions are specified, resulting thumbnail would be exactly the width and height specified. How it's
+     * achieved depends on the mode.
+     *
+     * If `ImageInterface::THUMBNAIL_OUTBOUND` mode is used, which is default, then the thumbnail is scaled so that
+     * its smallest side equals the length of the corresponding side in the original image. Any excess outside of
+     * the scaled thumbnail’s area will be cropped, and the returned thumbnail will have the exact width and height
+     * specified.
+     *
+     * If thumbnail mode is `ImageInterface::THUMBNAIL_INSET`, the original image is scaled down so it is fully
+     * contained within the thumbnail dimensions. The rest is filled with background that could be configured via
+     * [[Image::$thumbnailBackgroundColor]] and [[Image::$thumbnailBackgroundAlpha]].
+     *
      * @param string $filename the image file path or path alias.
      * @param integer $width the width in pixels to create the thumbnail
      * @param integer $height the height in pixels to create the thumbnail
-     * @param string $mode
+     * @param string $mode mode of resizing original image to use in case both width and height specified
      * @return ImageInterface
      */
     public static function thumbnail($filename, $width, $height, $mode = ManipulatorInterface::THUMBNAIL_OUTBOUND)
     {
         $img = static::getImagine()->open(Yii::getAlias($filename));
 
-        $ratio = $img->getSize()->getWidth() / $img->getSize()->getHeight();
-        list($width, $height) = static::countNullableSide($ratio, $width, $height);
-        
-        $box = new Box($width, $height);
+        $sourceBox = $img->getSize();
+        $thumbnailBox = static::getThumbnailBox($sourceBox, $width, $height);
 
-        if (($img->getSize()->getWidth() <= $box->getWidth() && $img->getSize()->getHeight() <= $box->getHeight()) || (!$box->getWidth() && !$box->getHeight())) {
+        if (($sourceBox->getWidth() <= $thumbnailBox->getWidth() && $sourceBox->getHeight() <= $thumbnailBox->getHeight()) || (!$thumbnailBox->getWidth() && !$thumbnailBox->getHeight())) {
             return $img->copy();
         }
 
-        $img = $img->thumbnail($box, $mode);
+        $img = $img->thumbnail($thumbnailBox, $mode);
 
         // create empty image to preserve aspect ratio of thumbnail
-        $thumb = static::getImagine()->create($box, new Color('FFF', 100));
+        $thumb = static::getImagine()->create($thumbnailBox, new Color(static::$thumbnailBackgroundColor, static::$thumbnailBackgroundAlpha));
 
         // calculate points
-        $size = $img->getSize();
-
         $startX = 0;
         $startY = 0;
-        if ($size->getWidth() < $width) {
-            $startX = ceil($width - $size->getWidth()) / 2;
+        if ($sourceBox->getWidth() < $width) {
+            $startX = ceil($width - $sourceBox->getWidth()) / 2;
         }
-        if ($size->getHeight() < $height) {
-            $startY = ceil($height - $size->getHeight()) / 2;
+        if ($sourceBox->getHeight() < $height) {
+            $startY = ceil($height - $sourceBox->getHeight()) / 2;
         }
 
         $thumb->paste($img, new Point($startX, $startY));
@@ -262,23 +289,33 @@ class BaseImage
     }
     
     /**
-     * Count nullable size of image by other side and ratio.
+     * Returns box for a thumbnail to be created. If one of the dimensions is set to `null`, another one is calculated
+     * automatically based on width to height ratio of original image box.
      *
-     * @param float $ratio
-     * @param int $width = null
-     * @param int $height = null
-     * @return array [$width, $height]
+     * @param BoxInterface $sourceBox original image box
+     * @param int $width thumbnail width
+     * @param int $height thumbnail height
+     * @return BoxInterface thumbnail box
+     *
+     * @since 2.0.4
      */
-    protected static function countNullableSide($ratio, $width = null, $height = null)
+    protected static function getThumbnailBox(BoxInterface $sourceBox, $width, $height)
     {
-        if ($width !== null && $height === null) {
-            $height = ceil($width / $ratio);
-        } elseif ($width === null && $height !== null) {
-            $width = ceil($height * $ratio);
-        } elseif ($width === null && $height === null) {
-            throw new InvalidParamException("Width and height cannot be null at same time.");
+        if ($width !== null && $height !== null) {
+            return new Box($width, $height);
         }
 
-        return [$width, $height];
+        if ($width === null && $height === null) {
+            throw new InvalidParamException('Width and height cannot be null at same time.');
+        }
+
+        $ratio = $sourceBox->getWidth() / $sourceBox->getHeight();
+        if ($height === null) {
+            $height = ceil($width / $ratio);
+        } else {
+            $width = ceil($height * $ratio);
+        }
+
+        return new Box($width, $height);
     }
 }
