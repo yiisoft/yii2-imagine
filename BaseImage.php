@@ -190,12 +190,20 @@ class BaseImage
 
         $img = $img->thumbnail($thumbnailBox, $mode);
 
+        if ($mode == ManipulatorInterface::THUMBNAIL_OUTBOUND) {
+            return $img;
+        }
+
+        $size = $img->getSize();
+
+        if ($size->getWidth() == $width && $size->getHeight() == $height) {
+            return $img;
+        }
+
         // create empty image to preserve aspect ratio of thumbnail
         $thumb = static::getImagine()->create($thumbnailBox, new Color(static::$thumbnailBackgroundColor, static::$thumbnailBackgroundAlpha));
 
         // calculate points
-        $size = $img->getSize();
-
         $startX = 0;
         $startY = 0;
         if ($size->getWidth() < $width) {
