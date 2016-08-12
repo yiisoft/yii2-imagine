@@ -194,13 +194,15 @@ class BaseImage
         $thumb = static::getImagine()->create($thumbnailBox, new Color(static::$thumbnailBackgroundColor, static::$thumbnailBackgroundAlpha));
 
         // calculate points
+        $size = $img->getSize();
+
         $startX = 0;
         $startY = 0;
-        if ($sourceBox->getWidth() < $width) {
-            $startX = ceil($width - $sourceBox->getWidth()) / 2;
+        if ($size->getWidth() < $width) {
+            $startX = ceil($width - $size->getWidth()) / 2;
         }
-        if ($sourceBox->getHeight() < $height) {
-            $startY = ceil($height - $sourceBox->getHeight()) / 2;
+        if ($size->getHeight() < $height) {
+            $startY = ceil($height - $size->getHeight()) / 2;
         }
 
         $thumb->paste($img, new Point($startX, $startY));
