@@ -7,7 +7,7 @@ Yii Framework 2 imagine extension Change Log
 - no changes in this release.
 
 
-2.0.4 under development
+2.0.4 September 4, 2016
 -----------------------
 
 - Enh #3: `Image::thumbnail()` could now automatically calculate thumbnail dimensions based on aspect ratio of original
