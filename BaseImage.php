@@ -16,8 +16,6 @@ use Imagine\Image\ImagineInterface;
 use Imagine\Image\ManipulatorInterface;
 use Imagine\Image\Point;
 use Imagine\Image\Palette\RGB;
-use Imagine\Image\Palette\Color\RGB as RGBColor;
-use Imagine\Image\Palette\ColorParser;
 use yii\base\InvalidConfigException;
 use yii\base\InvalidParamException;
 use yii\helpers\ArrayHelper;
@@ -159,6 +157,7 @@ class BaseImage
     }
     
     /**
+     * Rotate the image based on EXIF informations.
      * 
      * @param ImageInterface $image
      * @param string $color
@@ -169,18 +168,7 @@ class BaseImage
     	$rotate = new Autorotate($color);
     	return $rotate->apply($image);
     }
-
-    /**
-     * Parser a HEX color into an array RGB Value
-     * @param string $color
-     * @return array
-     */
-	protected static function colorParser($color)
-	{
-		$parser = new ColorParser();
-		return $parser->parseToRGB($color);
-	}
-
+    
     /**
      * Creates a thumbnail image.
      *
@@ -229,7 +217,7 @@ class BaseImage
         }
 
         $palette = new RGB();
-        $color = new RGBColor($palette, static::colorParser(static::$thumbnailBackgroundColor), static::$thumbnailBackgroundAlpha);
+        $color = $palette->color(static::$thumbnailBackgroundColor, static::$thumbnailBackgroundAlpha);
         
         // create empty image to preserve aspect ratio of thumbnail
         $thumb = static::getImagine()->create($thumbnailBox, $color);
@@ -296,7 +284,7 @@ class BaseImage
         $fontAngle = ArrayHelper::getValue($fontOptions, 'angle', 0);
 
         $palette = new RGB();
-        $color = new RGBColor($palette, self::colorParser($fontColor), 100);
+        $color = $palette->color($fontColor);
         
         $img = static::getImagine()->open(Yii::getAlias($filename));
         $font = static::getImagine()->font(Yii::getAlias($fontFile), $fontSize, $color);
@@ -323,8 +311,7 @@ class BaseImage
         $pasteTo = new Point($margin, $margin);
         
         $palette = new RGB();
-        $color = new RGBColor($palette, self::colorParser($color), $alpha);
-        
+        $color = $palette->color($color, $alpha);
 
         $box = new Box($size->getWidth() + ceil($margin * 2), $size->getHeight() + ceil($margin * 2));
 
