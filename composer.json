@@ -1,5 +1,5 @@
 {
-    "name": "nadar/yii2-imagine",
+    "name": "yiisoft/yii2-imagine",
     "description": "The Imagine integration for the Yii framework",
     "keywords": ["yii2", "imagine", "image", "helper"],
     "type": "yii2-extension",
@@ -18,8 +18,8 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "^2.0",
-        "imagine/imagine": "0.6.*"
+        "yiisoft/yii2": "~2.0.0",
+        "imagine/imagine": "~0.6.0"
     },
     "require-dev": {
     	"phpunit/phpunit" : "~5.0"
