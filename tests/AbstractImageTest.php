@@ -127,7 +127,7 @@ abstract class AbstractImageTest extends TestCase
     public function testIfAutoRotateThrowsException()
     {
     	$img = Image::thumbnail($this->imageFile, 120, 120);
-    	$this->assertInstanceOf('\Imagine\Image\ImageInterface', Image::autoRotate($img));
+    	$this->assertInstanceOf('\Imagine\Image\ImageInterface', Image::autorotate($img));
     }
 
     abstract protected function isFontTestSupported();
