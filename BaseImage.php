@@ -164,7 +164,7 @@ class BaseImage
      * @return \Imagine\Image\ImageInterface
      * @since 2.1.0
      */
-    public static function autoRotate(ImageInterface $image, $color = '000000')
+    public static function autorotate(ImageInterface $image, $color = '000000')
     {
     	return (new Autorotate($color))->apply($image);
     }
