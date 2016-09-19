@@ -1,10 +1,14 @@
 Yii Framework 2 imagine extension Change Log
 ================================================
 
-2.0.5 under development
+2.1.0 under development
 -----------------------
 
-- no changes in this release.
+- Enh #20: Upgraded the imagine library from 0.5.x to 0.6.x.
+      In order to upgrade to 0.6.x the color behavior had to be
+      changed. In addition a new `autorotate` method has been implemented
+      in order to rotate images based in the EXIF informations provided
+      inside the image (nadar)
 
 
 2.0.4 September 4, 2016

@@ -123,6 +123,12 @@ abstract class AbstractImageTest extends TestCase
         Image::$driver = 'fake-driver';
         Image::getImagine();
     }
+    
+    public function testIfAutoRotateThrowsException()
+    {
+    	$img = Image::thumbnail($this->imageFile, 120, 120);
+    	$this->assertInstanceOf('\Imagine\Image\ImageInterface', Image::autorotate($img));
+    }
 
     abstract protected function isFontTestSupported();
 }
