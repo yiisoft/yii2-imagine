@@ -16,10 +16,10 @@ use Imagine\Image\ImagineInterface;
 use Imagine\Image\ManipulatorInterface;
 use Imagine\Image\Point;
 use Imagine\Image\Palette\RGB;
+use Imagine\Filter\Basic\Autorotate;
 use yii\base\InvalidConfigException;
 use yii\base\InvalidParamException;
 use yii\helpers\ArrayHelper;
-use Imagine\Filter\Basic\Autorotate;
 
 /**
  * BaseImage provides concrete implementation for [[Image]].
@@ -157,16 +157,16 @@ class BaseImage
     }
     
     /**
-     * Rotate the image based on EXIF informations.
+     * Rotates an image automatically based on exif information.
      * 
-     * @param ImageInterface $image
+     * @param \Imagine\Image\ImageInterface $image The imagine instance object to rotate.
      * @param string $color
      * @return \Imagine\Image\ImageInterface
+     * @since 2.1.0
      */
     public static function autoRotate(ImageInterface $image, $color = '000000')
     {
-    	$rotate = new Autorotate($color);
-    	return $rotate->apply($image);
+    	return (new Autorotate($color))->apply($image);
     }
     
     /**
