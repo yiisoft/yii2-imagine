@@ -9,7 +9,8 @@ Yii Framework 2 imagine extension Change Log
       changed. In addition a new `autorotate` method has been implemented
       in order to rotate images based in the EXIF informations provided
       inside the image (nadar)
-
+- Enh #2: ImageInterface objects are now supported as image files (samdark)
+- Enh #11: Resources are now supported as image files (samdark)
 
 2.0.4 September 4, 2016
 -----------------------
