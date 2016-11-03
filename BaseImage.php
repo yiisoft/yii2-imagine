@@ -35,12 +35,10 @@ class BaseImage
      * GD2 driver definition for Imagine implementation using the GD library.
      */
     const DRIVER_GD2 = 'gd2';
-    
     /**
      * imagick driver definition.
      */
     const DRIVER_IMAGICK = 'imagick';
-    
     /**
      * gmagick driver definition.
      */
@@ -51,11 +49,11 @@ class BaseImage
      * If the latter, the first available driver will be used.
      */
     public static $driver = [self::DRIVER_GMAGICK, self::DRIVER_IMAGICK, self::DRIVER_GD2];
-    
     /**
      * @var ImagineInterface instance.
      */
     private static $_imagine;
+
 
     /**
      * @var string background color to use when creating thumbnails in `ImageInterface::THUMBNAIL_INSET` mode with
@@ -162,8 +160,8 @@ class BaseImage
      * ~~~
      *
      * @param string|resource|ImageInterface $image either ImageInterface, resource or a string containing file path
-     * @param integer $width the crop width
-     * @param integer $height the crop height
+     * @param int $width the crop width
+     * @param int $height the crop height
      * @param array $start the starting point. This must be an array with two elements representing `x` and `y` coordinates.
      * @return ImageInterface
      * @throws InvalidParamException if the `$start` parameter is invalid
@@ -181,7 +179,7 @@ class BaseImage
     
     /**
      * Rotates an image automatically based on EXIF information.
-     * 
+     *
      * @param string|resource|ImageInterface $image either ImageInterface, resource or a string containing file path
      * @param string $color
      * @return \Imagine\Image\ImageInterface
@@ -211,8 +209,8 @@ class BaseImage
      * [[Image::$thumbnailBackgroundColor]] and [[Image::$thumbnailBackgroundAlpha]].
      *
      * @param string|resource|ImageInterface $image either ImageInterface, resource or a string containing file path
-     * @param integer $width the width in pixels to create the thumbnail
-     * @param integer $height the height in pixels to create the thumbnail
+     * @param int $width the width in pixels to create the thumbnail
+     * @param int $height the height in pixels to create the thumbnail
      * @param string $mode mode of resizing original image to use in case both width and height specified
      * @return ImageInterface
      */
@@ -321,9 +319,9 @@ class BaseImage
     /**
      * Adds a frame around of the image. Please note that the image size will increase by `$margin` x 2.
      * @param string|resource|ImageInterface $image either ImageInterface, resource or a string containing file path
-     * @param integer $margin the frame size to add around the image
+     * @param int $margin the frame size to add around the image
      * @param string $color the frame color
-     * @param integer $alpha the alpha value of the frame.
+     * @param int $alpha the alpha value of the frame.
      * @return ImageInterface
      */
     public static function frame($image, $margin = 20, $color = '666', $alpha = 100)
@@ -351,8 +349,8 @@ class BaseImage
      * automatically based on width to height ratio of original image box.
      *
      * @param BoxInterface $sourceBox original image box
-     * @param integer $width thumbnail width
-     * @param integer $height thumbnail height
+     * @param int $width thumbnail width
+     * @param int $height thumbnail height
      * @return BoxInterface thumbnail box
      *
      * @since 2.0.4
