@@ -275,6 +275,8 @@ class BaseImage
      * @param bool $keepAspectRatio should the image keep aspect ratio
      * @param bool $allowUpscaling should the image be upscaled if needed
      * @return ImageInterface
+     *
+     * @since 2.1.1
      */
     public static function resize($image, $width, $height, $keepAspectRatio = true, $allowUpscaling = false)
     {
@@ -398,7 +400,7 @@ class BaseImage
 
 
     /**
-     * Returns box for a image to be created.
+     * Returns box for an image to be created.
      *
      * If one of the dimensions is set to `null`, another one is calculated automatically based on width to height ratio
      * of original image box.
@@ -433,10 +435,10 @@ class BaseImage
                 $height = ceil($width / $ratio);
             } elseif ($width === null) {
                 $width = ceil($height * $ratio);
-            } elseif ($width/$height > $ratio) {
-                $width = $height*$ratio;
+            } elseif ($width / $height > $ratio) {
+                $width = $height * $ratio;
             } else {
-                $height = $width/$ratio;
+                $height = $width / $ratio;
             }
         }
 
