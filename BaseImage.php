@@ -176,7 +176,7 @@ class BaseImage
             ->copy()
             ->crop(new Point($start[0], $start[1]), new Box($width, $height));
     }
-    
+
     /**
      * Rotates an image automatically based on EXIF information.
      *
@@ -189,7 +189,7 @@ class BaseImage
     {
     	return (new Autorotate($color))->apply(static::ensureImageInterfaceInstance($image));
     }
-    
+
     /**
      * Creates a thumbnail image.
      *
@@ -222,7 +222,7 @@ class BaseImage
         $sourceBox = $img->getSize();
         $thumbnailBox = static::getThumbnailBox($sourceBox, $width, $height);
 
-        if (($sourceBox->getWidth() <= $thumbnailBox->getWidth() && $sourceBox->getHeight() <= $thumbnailBox->getHeight()) || (!$thumbnailBox->getWidth() && !$thumbnailBox->getHeight())) {
+        if (self::isUpscaling($sourceBox, $thumbnailBox)) {
             return $img->copy();
         }
 
@@ -240,7 +240,7 @@ class BaseImage
 
         $palette = new RGB();
         $color = $palette->color(static::$thumbnailBackgroundColor, static::$thumbnailBackgroundAlpha);
-        
+
         // create empty image to preserve aspect ratio of thumbnail
         $thumb = static::getImagine()->create($thumbnailBox, $color);
 
@@ -257,6 +257,40 @@ class BaseImage
         $thumb->paste($img, new Point($startX, $startY));
 
         return $thumb;
+    }
+
+    /**
+     * Resizes an image.
+     *
+     * If one of the dimensions is set to `null`, another one is calculated automatically based on aspect ratio of
+     * original image.
+     *
+     * If both of the dimensions are set then new dimensions are calculated so that image keeps aspect ratio.
+     *
+     * You can set $keepAspectRatio to false if you want to force fixed width and height.
+     *
+     * @param string|resource|ImageInterface $image either ImageInterface, resource or a string containing file path
+     * @param int $width the width in pixels
+     * @param int $height the height in pixels
+     * @param bool $keepAspectRatio should the image keep aspect ratio
+     * @param bool $allowUpscaling should the image be upscaled if needed
+     * @return ImageInterface
+     *
+     * @since 2.1.1
+     */
+    public static function resize($image, $width, $height, $keepAspectRatio = true, $allowUpscaling = false)
+    {
+        $img = self::ensureImageInterfaceInstance($image)->copy();
+
+        /** @var BoxInterface $sourceBox */
+        $sourceBox = $img->getSize();
+        $destinationBox = static::getBox($sourceBox, $width, $height, $keepAspectRatio);
+
+        if ($allowUpscaling === false && self::isUpscaling($sourceBox, $destinationBox)) {
+            return $img;
+        }
+
+        return $img->resize($destinationBox);
     }
 
     /**
@@ -307,7 +341,7 @@ class BaseImage
 
         $palette = new RGB();
         $color = $palette->color($fontColor);
-        
+
         $img = self::ensureImageInterfaceInstance($image);
         $font = static::getImagine()->font(Yii::getAlias($fontFile), $fontSize, $color);
 
@@ -343,7 +377,7 @@ class BaseImage
 
         return $finalImage;
     }
-    
+
     /**
      * Returns box for a thumbnail to be created. If one of the dimensions is set to `null`, another one is calculated
      * automatically based on width to height ratio of original image box.
@@ -361,17 +395,65 @@ class BaseImage
             return new Box($width, $height);
         }
 
+        return self::getBox($sourceBox, $width, $height, false);
+    }
+
+
+    /**
+     * Returns box for an image to be created.
+     *
+     * If one of the dimensions is set to `null`, another one is calculated automatically based on width to height ratio
+     * of original image box.
+     *
+     * If both of the dimensions are set then new dimensions are calculated so that image keeps aspect ratio.
+     *
+     * You can set $keepAspectRatio to false if you want to force fixed width and height.
+     *
+     * @param BoxInterface $sourceBox original image box
+     * @param int $width new image width
+     * @param int $height new image height
+     * @param bool $keepAspectRatio should we keep aspect ratio even if both with and height are set
+     * @return BoxInterface new image box
+     *
+     * @since 2.1.1
+     */
+    protected static function getBox(BoxInterface $sourceBox, $width, $height, $keepAspectRatio = true)
+    {
         if ($width === null && $height === null) {
             throw new InvalidParamException('Width and height cannot be null at same time.');
         }
 
         $ratio = $sourceBox->getWidth() / $sourceBox->getHeight();
-        if ($height === null) {
-            $height = ceil($width / $ratio);
+        if ($keepAspectRatio === false) {
+            if ($height === null) {
+                $height = ceil($width / $ratio);
+            } elseif ($width === null) {
+                $width = ceil($height * $ratio);
+            }
         } else {
-            $width = ceil($height * $ratio);
+            if ($height === null) {
+                $height = ceil($width / $ratio);
+            } elseif ($width === null) {
+                $width = ceil($height * $ratio);
+            } elseif ($width / $height > $ratio) {
+                $width = $height * $ratio;
+            } else {
+                $height = $width / $ratio;
+            }
         }
 
         return new Box($width, $height);
+    }
+
+    /**
+     * Checks if upscaling is going to happen
+     *
+     * @param BoxInterface $sourceBox
+     * @param BoxInterface $destinationBox
+     * @return bool
+     */
+    protected  static function isUpscaling(BoxInterface $sourceBox, BoxInterface $destinationBox)
+    {
+        return ($sourceBox->getWidth() <= $destinationBox->getWidth() && $sourceBox->getHeight() <= $destinationBox->getHeight()) || (!$destinationBox->getWidth() && !$destinationBox->getHeight());
     }
 }

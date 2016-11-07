@@ -115,6 +115,34 @@ abstract class AbstractImageTest extends TestCase
     }
 
     /**
+     * @dataProvider providerResize
+     */
+    public function testResize($width, $height, $keepAspectRatio, $allowUpscaling, $newWidth, $newHeight)
+    {
+        $img = Image::resize($this->imageFile, $width, $height, $keepAspectRatio, $allowUpscaling);
+
+        $this->assertEquals($newWidth, $img->getSize()->getWidth());
+        $this->assertEquals($newHeight, $img->getSize()->getHeight());
+    }
+
+    public function providerResize()
+    {
+        // [width, height, keepAspectRatio, allowUpscaling, newWidth, newHeight]
+        return [
+            'Height and width set. Image should keep aspect ratio.' =>
+                [350, 350, true, false, 350, 180],
+            'Height and width set. Image should be resized to exact dimensions.' =>
+                [350, 350, false, false, 350, 350],
+            'Height omitted and is calculated based on original image aspect ratio.' =>
+                [350, null, true, false, 350, 180],
+            'Width omitted and is calculated based on original image aspect ratio.' =>
+                [null, 180, true, false, 350, 180],
+            'Upscaling' =>
+                [800, 800, true, true, 800, 411],
+        ];
+    }
+
+    /**
      * @expectedException \yii\base\InvalidConfigException
      */
     public function testShouldThrowExceptionOnDriverInvalidArgument()
