@@ -278,17 +278,17 @@ class BaseImage
      */
     public static function resize($image, $width, $height, $keepAspectRatio = true, $allowUpscaling = false)
     {
-        $img = self::ensureImageInterfaceInstance($image);
+        $img = self::ensureImageInterfaceInstance($image)->copy();
 
         /** @var BoxInterface $sourceBox */
         $sourceBox = $img->getSize();
         $destinationBox = static::getBox($sourceBox, $width, $height, $keepAspectRatio);
 
         if ($allowUpscaling === false && self::isUpscaling($sourceBox, $destinationBox)) {
-            return $img->copy();
+            return $img;
         }
 
-        return $img->copy()->resize($destinationBox);
+        return $img->resize($destinationBox);
     }
 
     /**
