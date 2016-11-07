@@ -113,38 +113,27 @@ abstract class AbstractImageTest extends TestCase
         $this->assertEquals(234, $img->getSize()->getWidth());
         $this->assertEquals(120, $img->getSize()->getHeight());
     }
-
-    public function testResize()
+    
+    /**
+     * @dataProvider providerResize
+     */
+    public function testResize($width, $height, $keepAspectRatio, $allowUpscaling, $newWidth, $newHeight)
     {
-        // Height and width set. Image should keep aspect ratio.
-        $img = Image::resize($this->imageFile, 350, 350);
+        $img = Image::resize($this->imageFile, $width, $height, $keepAspectRatio, $allowUpscaling);
 
-        $this->assertEquals(350, $img->getSize()->getWidth());
-        $this->assertEquals(180, $img->getSize()->getHeight());
+        $this->assertEquals($newWidth, $img->getSize()->getWidth());
+        $this->assertEquals($newHeight, $img->getSize()->getHeight());
+    }
 
-        // Height and width set. Image should be resized to exact dimensions.
-        $img = Image::resize($this->imageFile, 350, 350, false);
-
-        $this->assertEquals(350, $img->getSize()->getWidth());
-        $this->assertEquals(350, $img->getSize()->getHeight());
-
-        // Height omitted and is calculated based on original image aspect ratio.
-        $img = Image::resize($this->imageFile, 350, null);
-
-        $this->assertEquals(350, $img->getSize()->getWidth());
-        $this->assertEquals(180, $img->getSize()->getHeight());
-
-        // Width omitted and is calculated based on original image aspect ratio.
-        $img = Image::resize($this->imageFile, null, 180);
-
-        $this->assertEquals(350, $img->getSize()->getWidth());
-        $this->assertEquals(180, $img->getSize()->getHeight());
-
-        // Upscaling
-        $img = Image::resize($this->imageFile, 800, 800, true, true);
-
-        $this->assertEquals(800, $img->getSize()->getWidth());
-        $this->assertEquals(411, $img->getSize()->getHeight());
+    public function providerResize()
+    {
+        return [
+            [350, 350, true, false, 350, 180],    // Height and width set. Image should keep aspect ratio.
+            [350, 350, false, false, 350, 350],   // Height and width set. Image should be resized to exact dimensions.
+            [350, null, true, false, 350, 180],   // Height omitted and is calculated based on original image aspect ratio.
+            [null, 180, true, false, 350, 180],   // Width omitted and is calculated based on original image aspect ratio.
+            [800, 800, true, true, 800, 411],     // Upscaling
+        ];
     }
 
     /**
