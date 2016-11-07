@@ -265,6 +265,32 @@ class BaseImage
      * If one of the dimensions is set to `null`, another one is calculated automatically based on aspect ratio of
      * original image.
      *
+     * If both of the dimensions are set then new dimensions are calculated so that image keeps aspect ratio.
+     *
+     * You can set $keepAspectRatio to false if you want to force fixed width and height.
+     *
+     * @param string|resource|ImageInterface $image either ImageInterface, resource or a string containing file path
+     * @param int $width the width in pixels
+     * @param int $height the height in pixels
+     * @param bool $keepAspectRatio should the image keep aspect ratio
+     * @return ImageInterface
+     */
+    public static function resize($image, $width, $height, $keepAspectRatio = true)
+    {
+        $img = self::ensureImageInterfaceInstance($image);
+
+        /** @var BoxInterface $sourceBox */
+        $sourceBox = $img->getSize();
+        $thumbnailBox = static::getBox($sourceBox, $width, $height, $keepAspectRatio);
+
+        if (($sourceBox->getWidth() <= $thumbnailBox->getWidth() && $sourceBox->getHeight() <= $thumbnailBox->getHeight()) || (!$thumbnailBox->getWidth() && !$thumbnailBox->getHeight())) {
+            return $img->copy();
+        }
+
+        return $img->copy()->resize($thumbnailBox);
+    }
+
+    /**
      * Adds a watermark to an existing image.
      * @param string|resource|ImageInterface $image either ImageInterface, resource or a string containing file path
      * @param string|resource|ImageInterface $watermarkImage either ImageInterface, resource or a string containing watermark file path
@@ -312,6 +338,7 @@ class BaseImage
 
         $palette = new RGB();
         $color = $palette->color($fontColor);
+
         $img = self::ensureImageInterfaceInstance($image);
         $font = static::getImagine()->font(Yii::getAlias($fontFile), $fontSize, $color);
 
@@ -347,6 +374,7 @@ class BaseImage
 
         return $finalImage;
     }
+
     /**
      * Returns box for a thumbnail to be created. If one of the dimensions is set to `null`, another one is calculated
      * automatically based on width to height ratio of original image box.
@@ -364,13 +392,51 @@ class BaseImage
             return new Box($width, $height);
         }
 
+        return self::getBox($sourceBox, $width, $height, false);
+    }
 
+
+    /**
+     * Returns box for a image to be created.
+     *
+     * If one of the dimensions is set to `null`, another one is calculated automatically based on width to height ratio
+     * of original image box.
+     *
+     * If both of the dimensions are set then new dimensions are calculated so that image keeps aspect ratio.
+     *
+     * You can set $keepAspectRatio to false if you want to force fixed width and height.
+     *
+     * @param BoxInterface $sourceBox original image box
+     * @param int $width new image width
+     * @param int $height new image height
+     * @param bool $keepAspectRatio should we keep aspect ratio even if both with and height are set
+     * @return BoxInterface new image box
+     *
+     * @since 2.1.1
+     */
+    protected static function getBox(BoxInterface $sourceBox, $width, $height, $keepAspectRatio = true)
+    {
         if ($width === null && $height === null) {
             throw new InvalidParamException('Width and height cannot be null at same time.');
         }
 
         $ratio = $sourceBox->getWidth() / $sourceBox->getHeight();
+        if ($keepAspectRatio === false) {
+            if ($height === null) {
+                $height = ceil($width / $ratio);
+            } elseif ($width === null) {
+                $width = ceil($height * $ratio);
+            }
         } else {
+            if ($height === null) {
+                $height = ceil($width / $ratio);
+            } elseif ($width === null) {
+                $width = ceil($height * $ratio);
+            } elseif ($width/$height > $ratio) {
+                $width = $height*$ratio;
+            } else {
+                $height = $width/$ratio;
+            }
         }
 
         return new Box($width, $height);
