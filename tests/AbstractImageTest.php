@@ -114,6 +114,33 @@ abstract class AbstractImageTest extends TestCase
         $this->assertEquals(120, $img->getSize()->getHeight());
     }
 
+    public function testResize()
+    {
+        // Height and width set. Image should keep aspect ratio.
+        $img = Image::resize($this->imageFile, 350, 350);
+
+        $this->assertEquals(350, $img->getSize()->getWidth());
+        $this->assertEquals(180, $img->getSize()->getHeight());
+
+        // Height and width set. Image should be resized to exact dimensions.
+        $img = Image::resize($this->imageFile, 350, 350, false);
+
+        $this->assertEquals(350, $img->getSize()->getWidth());
+        $this->assertEquals(350, $img->getSize()->getHeight());
+
+        // Height omitted and is calculated based on original image aspect ratio.
+        $img = Image::resize($this->imageFile, 350, null);
+
+        $this->assertEquals(350, $img->getSize()->getWidth());
+        $this->assertEquals(180, $img->getSize()->getHeight());
+
+        // Width omitted and is calculated based on original image aspect ratio.
+        $img = Image::resize($this->imageFile, null, 180);
+
+        $this->assertEquals(350, $img->getSize()->getWidth());
+        $this->assertEquals(180, $img->getSize()->getHeight());
+    }
+
     /**
      * @expectedException \yii\base\InvalidConfigException
      */

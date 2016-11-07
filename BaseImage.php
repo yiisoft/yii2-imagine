@@ -176,7 +176,7 @@ class BaseImage
             ->copy()
             ->crop(new Point($start[0], $start[1]), new Box($width, $height));
     }
-    
+
     /**
      * Rotates an image automatically based on EXIF information.
      *
@@ -189,7 +189,7 @@ class BaseImage
     {
     	return (new Autorotate($color))->apply(static::ensureImageInterfaceInstance($image));
     }
-    
+
     /**
      * Creates a thumbnail image.
      *
@@ -240,7 +240,7 @@ class BaseImage
 
         $palette = new RGB();
         $color = $palette->color(static::$thumbnailBackgroundColor, static::$thumbnailBackgroundAlpha);
-        
+
         // create empty image to preserve aspect ratio of thumbnail
         $thumb = static::getImagine()->create($thumbnailBox, $color);
 
@@ -260,6 +260,11 @@ class BaseImage
     }
 
     /**
+     * Resizes an image.
+     *
+     * If one of the dimensions is set to `null`, another one is calculated automatically based on aspect ratio of
+     * original image.
+     *
      * Adds a watermark to an existing image.
      * @param string|resource|ImageInterface $image either ImageInterface, resource or a string containing file path
      * @param string|resource|ImageInterface $watermarkImage either ImageInterface, resource or a string containing watermark file path
@@ -307,7 +312,6 @@ class BaseImage
 
         $palette = new RGB();
         $color = $palette->color($fontColor);
-        
         $img = self::ensureImageInterfaceInstance($image);
         $font = static::getImagine()->font(Yii::getAlias($fontFile), $fontSize, $color);
 
@@ -343,7 +347,6 @@ class BaseImage
 
         return $finalImage;
     }
-    
     /**
      * Returns box for a thumbnail to be created. If one of the dimensions is set to `null`, another one is calculated
      * automatically based on width to height ratio of original image box.
@@ -361,15 +364,13 @@ class BaseImage
             return new Box($width, $height);
         }
 
+
         if ($width === null && $height === null) {
             throw new InvalidParamException('Width and height cannot be null at same time.');
         }
 
         $ratio = $sourceBox->getWidth() / $sourceBox->getHeight();
-        if ($height === null) {
-            $height = ceil($width / $ratio);
         } else {
-            $width = ceil($height * $ratio);
         }
 
         return new Box($width, $height);
