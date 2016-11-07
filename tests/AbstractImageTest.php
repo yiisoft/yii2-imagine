@@ -127,8 +127,8 @@ abstract class AbstractImageTest extends TestCase
 
     public function providerResize()
     {
+        // [width, height, keepAspectRatio, allowUpscaling, newWidth, newHeight]
         return [
-            //[width, height, keepAspectRatio, allowUpscaling, newWidth, newHeight]
             [350, 350, true, false, 350, 180],    // Height and width set. Image should keep aspect ratio.
             [350, 350, false, false, 350, 350],   // Height and width set. Image should be resized to exact dimensions.
             [350, null, true, false, 350, 180],   // Height omitted and is calculated based on original image aspect ratio.
