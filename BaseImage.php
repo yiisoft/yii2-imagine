@@ -222,7 +222,7 @@ class BaseImage
         $sourceBox = $img->getSize();
         $thumbnailBox = static::getThumbnailBox($sourceBox, $width, $height);
 
-        if (($sourceBox->getWidth() <= $thumbnailBox->getWidth() && $sourceBox->getHeight() <= $thumbnailBox->getHeight()) || (!$thumbnailBox->getWidth() && !$thumbnailBox->getHeight())) {
+        if (self::isUpscaling($sourceBox, $thumbnailBox)) {
             return $img->copy();
         }
 
@@ -273,21 +273,22 @@ class BaseImage
      * @param int $width the width in pixels
      * @param int $height the height in pixels
      * @param bool $keepAspectRatio should the image keep aspect ratio
+     * @param bool $allowUpscaling should the image be upscaled if needed
      * @return ImageInterface
      */
-    public static function resize($image, $width, $height, $keepAspectRatio = true)
+    public static function resize($image, $width, $height, $keepAspectRatio = true, $allowUpscaling = false)
     {
         $img = self::ensureImageInterfaceInstance($image);
 
         /** @var BoxInterface $sourceBox */
         $sourceBox = $img->getSize();
-        $thumbnailBox = static::getBox($sourceBox, $width, $height, $keepAspectRatio);
+        $destinationBox = static::getBox($sourceBox, $width, $height, $keepAspectRatio);
 
-        if (($sourceBox->getWidth() <= $thumbnailBox->getWidth() && $sourceBox->getHeight() <= $thumbnailBox->getHeight()) || (!$thumbnailBox->getWidth() && !$thumbnailBox->getHeight())) {
+        if ($allowUpscaling === false && self::isUpscaling($sourceBox, $destinationBox)) {
             return $img->copy();
         }
 
-        return $img->copy()->resize($thumbnailBox);
+        return $img->copy()->resize($destinationBox);
     }
 
     /**
@@ -440,5 +441,17 @@ class BaseImage
         }
 
         return new Box($width, $height);
+    }
+
+    /**
+     * Checks if upscaling is going to happen
+     *
+     * @param BoxInterface $sourceBox
+     * @param BoxInterface $destinationBox
+     * @return bool
+     */
+    protected  static function isUpscaling(BoxInterface $sourceBox, BoxInterface $destinationBox)
+    {
+        return ($sourceBox->getWidth() <= $destinationBox->getWidth() && $sourceBox->getHeight() <= $destinationBox->getHeight()) || (!$destinationBox->getWidth() && !$destinationBox->getHeight());
     }
 }

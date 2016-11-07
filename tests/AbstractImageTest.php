@@ -139,6 +139,12 @@ abstract class AbstractImageTest extends TestCase
 
         $this->assertEquals(350, $img->getSize()->getWidth());
         $this->assertEquals(180, $img->getSize()->getHeight());
+
+        // Upscaling
+        $img = Image::resize($this->imageFile, 800, 800, true, true);
+
+        $this->assertEquals(800, $img->getSize()->getWidth());
+        $this->assertEquals(411, $img->getSize()->getHeight());
     }
 
     /**
