@@ -5,6 +5,7 @@ Yii Framework 2 imagine extension Change Log
 -----------------------
 
 - Enh #22: Added method `Image::resize()` to ease resizing images to fit certain dimensions. (Renkas)
+- Enh #28: Added `$allowUpscaling` argument to `Image::thumbnail()` so it would be possible to always have thumbnail with fixed dimensions. (Renkas)
 
 
 2.1.0 November 3, 2016

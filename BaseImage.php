@@ -212,9 +212,12 @@ class BaseImage
      * @param int $width the width in pixels to create the thumbnail
      * @param int $height the height in pixels to create the thumbnail
      * @param string $mode mode of resizing original image to use in case both width and height specified
+     * @param bool $allowUpscaling should the image be upscaled if needed
      * @return ImageInterface
+     *
+     * @since 2.1.1 Added the $allowUpscaling argument.
      */
-    public static function thumbnail($image, $width, $height, $mode = ManipulatorInterface::THUMBNAIL_OUTBOUND)
+    public static function thumbnail($image, $width, $height, $mode = ManipulatorInterface::THUMBNAIL_OUTBOUND, $allowUpscaling = false)
     {
         $img = self::ensureImageInterfaceInstance($image);
 
@@ -223,12 +226,16 @@ class BaseImage
         $thumbnailBox = static::getThumbnailBox($sourceBox, $width, $height);
 
         if (self::isUpscaling($sourceBox, $thumbnailBox)) {
-            return $img->copy();
+            if ($allowUpscaling === false) {
+                return $img->copy();
+            } else {
+                $img = self::resize($image, $width, $height, true, true);
+            }
         }
 
         $img = $img->thumbnail($thumbnailBox, $mode);
 
-        if ($mode == ManipulatorInterface::THUMBNAIL_OUTBOUND) {
+        if ($allowUpscaling === false && $mode == ManipulatorInterface::THUMBNAIL_OUTBOUND) {
             return $img;
         }
 

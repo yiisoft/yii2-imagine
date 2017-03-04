@@ -112,6 +112,17 @@ abstract class AbstractImageTest extends TestCase
 
         $this->assertEquals(234, $img->getSize()->getWidth());
         $this->assertEquals(120, $img->getSize()->getHeight());
+
+        // Image should be upscaled regardless of the mode.
+        $img = Image::thumbnail($this->imageFile, 1000, 1000, ImageInterface::THUMBNAIL_OUTBOUND, true);
+
+        $this->assertEquals(1000, $img->getSize()->getWidth());
+        $this->assertEquals(1000, $img->getSize()->getHeight());
+
+        $img = Image::thumbnail($this->imageFile, 1000, 1000, ImageInterface::THUMBNAIL_INSET, true);
+
+        $this->assertEquals(1000, $img->getSize()->getWidth());
+        $this->assertEquals(1000, $img->getSize()->getHeight());
     }
 
     /**
