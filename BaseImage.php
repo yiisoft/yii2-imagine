@@ -215,7 +215,7 @@ class BaseImage
      * @param bool $allowUpscaling should the image be upscaled if needed
      * @return ImageInterface
      *
-     * @since 2.1.1 Added the $allowUpscaling argument.
+     * @since 2.2.0 Added the $allowUpscaling argument.
      */
     public static function thumbnail($image, $width, $height, $mode = ManipulatorInterface::THUMBNAIL_OUTBOUND, $allowUpscaling = false)
     {
@@ -283,7 +283,7 @@ class BaseImage
      * @param bool $allowUpscaling should the image be upscaled if needed
      * @return ImageInterface
      *
-     * @since 2.1.1
+     * @since 2.2.0
      */
     public static function resize($image, $width, $height, $keepAspectRatio = true, $allowUpscaling = false)
     {
@@ -422,7 +422,7 @@ class BaseImage
      * @param bool $keepAspectRatio should we keep aspect ratio even if both with and height are set
      * @return BoxInterface new image box
      *
-     * @since 2.1.1
+     * @since 2.2.0
      */
     protected static function getBox(BoxInterface $sourceBox, $width, $height, $keepAspectRatio = true)
     {

@@ -1,7 +1,7 @@
 Yii Framework 2 imagine extension Change Log
 ================================================
 
-2.1.1 under development
+2.2.0 under development
 -----------------------
 
 - Enh #22: Added method `Image::resize()` to ease resizing images to fit certain dimensions. (Renkas)
