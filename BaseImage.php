@@ -248,10 +248,10 @@ class BaseImage
         $startX = 0;
         $startY = 0;
         if ($size->getWidth() < $width) {
-            $startX = ceil($width - $size->getWidth()) / 2;
+            $startX = ceil(($width - $size->getWidth()) / 2);
         }
         if ($size->getHeight() < $height) {
-            $startY = ceil($height - $size->getHeight()) / 2;
+            $startY = ceil(($height - $size->getHeight()) / 2);
         }
 
         $thumb->paste($img, new Point($startX, $startY));
