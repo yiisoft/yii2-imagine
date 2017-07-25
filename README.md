@@ -1,3 +1,11 @@
+<p align="center">
+    <a href="http://imagine.readthedocs.org/" target="_blank" rel="external">
+        <img src="http://imagine.readthedocs.io/en/latest/_static/logo.png" height="100px">
+    </a>
+    <h1 align="center">Imagine Extension for Yii 2</h1>
+    <br>
+</p>
+
 Imagine Extension for Yii 2
 ===========================
 
