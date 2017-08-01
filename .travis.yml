@@ -1,16 +1,23 @@
-dist: trusty
-
 language: php
 
 php:
-  - 5.4
-  - 5.5
-  - 5.6
-  - 7.0
-  - 7.1
-  - hhvm
-
-# faster builds on new travis setup not using sudo
+- 5.4
+- 5.5
+- 5.6
+- 7.0
+- 7.1
+matrix:
+  include:
+  - php: hhvm
+    sudo: true
+    dist: trusty
+    group: edge
+    cache:
+      directories: "$HOME/.composer/cache"
+    before_install:
+    - wget https://phar.phpunit.de/phpunit-4.5.1.phar
+    script:
+    - php phpunit-4.5.1.phar --verbose $PHPUNIT_FLAGS
 sudo: false
 
 # cache vendor dirs
