@@ -54,7 +54,6 @@ class BaseImage
      */
     private static $_imagine;
 
-
     /**
      * @var string background color to use when creating thumbnails in `ImageInterface::THUMBNAIL_INSET` mode with
      * both width and height specified. Default is white.
@@ -69,6 +68,7 @@ class BaseImage
      * @since 2.0.4
      */
     public static $thumbnailBackgroundAlpha = 100;
+
 
     /**
      * Returns the `Imagine` object that supports various image manipulations.
@@ -187,7 +187,7 @@ class BaseImage
      */
     public static function autorotate($image, $color = '000000')
     {
-    	return (new Autorotate($color))->apply(static::ensureImageInterfaceInstance($image));
+        return (new Autorotate($color))->apply(static::ensureImageInterfaceInstance($image));
     }
 
     /**
@@ -398,7 +398,6 @@ class BaseImage
         return self::getBox($sourceBox, $width, $height, false);
     }
 
-
     /**
      * Returns box for an image to be created.
      *
@@ -452,7 +451,7 @@ class BaseImage
      * @param BoxInterface $destinationBox
      * @return bool
      */
-    protected  static function isUpscaling(BoxInterface $sourceBox, BoxInterface $destinationBox)
+    protected static function isUpscaling(BoxInterface $sourceBox, BoxInterface $destinationBox)
     {
         return ($sourceBox->getWidth() <= $destinationBox->getWidth() && $sourceBox->getHeight() <= $destinationBox->getHeight()) || (!$destinationBox->getWidth() && !$destinationBox->getHeight());
     }
