@@ -1,6 +1,6 @@
 <?php
 
-namespace yiiunit\extensions\imagine;
+namespace yiiunit\imagine;
 
 use yii\imagine\Image;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace yiiunit\extensions\imagine;
+namespace yiiunit\imagine;
 
 use yii\imagine\Image;
 
@@ -10,7 +10,9 @@ use yii\imagine\Image;
  */
 class ImageImagickTest extends AbstractImageTest
 {
-
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp()
     {
         if (!class_exists('Imagick')) {

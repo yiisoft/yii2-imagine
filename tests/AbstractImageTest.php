@@ -1,5 +1,6 @@
 <?php
-namespace yiiunit\extensions\imagine;
+
+namespace yiiunit\imagine;
 
 use Yii;
 use yii\helpers\FileHelper;
@@ -14,16 +15,22 @@ abstract class AbstractImageTest extends TestCase
     protected $runtimeTextFile;
     protected $runtimeWatermarkFile;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp()
     {
-        FileHelper::createDirectory(Yii::getAlias('@yiiunit/extensions/imagine/runtime'));
-        $this->imageFile = Yii::getAlias('@yiiunit/extensions/imagine/data/large.jpg');
-        $this->watermarkFile = Yii::getAlias('@yiiunit/extensions/imagine/data/xparent.gif');
-        $this->runtimeTextFile = Yii::getAlias('@yiiunit/extensions/imagine/runtime/image-text-test.png');
-        $this->runtimeWatermarkFile = Yii::getAlias('@yiiunit/extensions/imagine/runtime/image-watermark-test.png');
+        FileHelper::createDirectory(Yii::getAlias('@yiiunit/imagine/runtime'));
+        $this->imageFile = Yii::getAlias('@yiiunit/imagine/data/large.jpg');
+        $this->watermarkFile = Yii::getAlias('@yiiunit/imagine/data/xparent.gif');
+        $this->runtimeTextFile = Yii::getAlias('@yiiunit/imagine/runtime/image-text-test.png');
+        $this->runtimeWatermarkFile = Yii::getAlias('@yiiunit/imagine/runtime/image-watermark-test.png');
         parent::setUp();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function tearDown()
     {
         @unlink($this->runtimeTextFile);
@@ -36,7 +43,7 @@ abstract class AbstractImageTest extends TestCase
             $this->markTestSkipped('Skipping ImageGdTest Gd not installed');
         }
 
-        $fontFile = Yii::getAlias('@yiiunit/extensions/imagine/data/GothamRnd-Light.otf');
+        $fontFile = Yii::getAlias('@yiiunit/imagine/data/GothamRnd-Light.otf');
 
         $img = Image::text($this->imageFile, 'Yii-2 Image', $fontFile, [0, 0], [
             'size' => 12,
@@ -154,8 +161,8 @@ abstract class AbstractImageTest extends TestCase
     
     public function testIfAutoRotateThrowsException()
     {
-    	$img = Image::thumbnail($this->imageFile, 120, 120);
-    	$this->assertInstanceOf('\Imagine\Image\ImageInterface', Image::autorotate($img));
+        $img = Image::thumbnail($this->imageFile, 120, 120);
+        $this->assertInstanceOf('\Imagine\Image\ImageInterface', Image::autorotate($img));
     }
 
     abstract protected function isFontTestSupported();
