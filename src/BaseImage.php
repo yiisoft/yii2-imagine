@@ -150,14 +150,14 @@ class BaseImage
     /**
      * Crops an image.
      *
-     * For example,
+     * For example:
      *
-     * ~~~
+     * ```php
      * $obj->crop('path\to\image.jpg', 200, 200, [5, 5]);
      *
      * $point = new \Imagine\Image\Point(5, 5);
      * $obj->crop('path\to\image.jpg', 200, 200, $point);
-     * ~~~
+     * ```
      *
      * @param string|resource|ImageInterface $image either ImageInterface, resource or a string containing file path
      * @param int $width the crop width
@@ -360,7 +360,7 @@ class BaseImage
      */
     public static function frame($image, $margin = 20, $color = '666', $alpha = 100)
     {
-        $img = static::getImagine()->open(Yii::getAlias($image));
+        $img = self::ensureImageInterfaceInstance($image);
 
         $size = $img->getSize();
 
