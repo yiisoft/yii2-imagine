@@ -54,6 +54,7 @@ class BaseImage
      */
     private static $_imagine;
 
+
     /**
      * @var string background color to use when creating thumbnails in `ImageInterface::THUMBNAIL_INSET` mode with
      * both width and height specified. Default is white.
@@ -68,7 +69,6 @@ class BaseImage
      * @since 2.0.4
      */
     public static $thumbnailBackgroundAlpha = 100;
-
 
     /**
      * Returns the `Imagine` object that supports various image manipulations.

@@ -1,12 +1,13 @@
 Yii Framework 2 imagine extension Change Log
 ================================================
 
-2.1.1 under development
+2.1.1 February 22, 2018
 -----------------------
 
 - Bug #35: Fixed incorrect `ceil()` call (Svyatoslav-S, samdark)
 - Enh #22: Added method `Image::resize()` to ease resizing images to fit certain dimensions (Renkas)
 - Enh #46: Updated Imagine dependency to include versions 0.7.x (klimov-paul)
+
 
 2.1.0 November 3, 2016
 ----------------------
