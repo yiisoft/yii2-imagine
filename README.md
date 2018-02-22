@@ -36,8 +36,8 @@ or add
 to the `require` section of your composer.json.
 
 
-Usage & Documentation
----------------------
+Basic Usage
+-----------
 
 This extension is a wrapper to the [Imagine](http://imagine.readthedocs.org/) and also adds the most commonly used
 image manipulation methods.
@@ -52,6 +52,3 @@ Image::frame('path/to/image.jpg', 5, '666', 0)
     ->rotate(-8)
     ->save('path/to/destination/image.jpg', ['jpeg_quality' => 50]);
 ```
-
-Note that each `Image` method returns an instance of `\Imagine\Image\ImageInterface`.
-This means you can make use of the methods included in the `Imagine` library:
