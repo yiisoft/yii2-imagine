@@ -18,13 +18,16 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "~2.0.0",
-        "imagine/imagine": "~0.6.0 | ~0.7.1"
+        "yiisoft/yii2": "2.1.x-dev",
+        "imagine/imagine": "~0.7.1"
     },
     "autoload": {
         "psr-4": {
             "yii\\imagine\\": "src"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {"yiiunit\\imagine\\": "tests/"}
     },
     "extra": {
         "branch-alias": {

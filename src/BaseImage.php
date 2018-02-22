@@ -16,8 +16,8 @@ use Imagine\Image\ManipulatorInterface;
 use Imagine\Image\Point;
 use Imagine\Image\Palette\RGB;
 use Imagine\Filter\Basic\Autorotate;
+use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
-use yii\base\InvalidParamException;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -127,7 +127,7 @@ class BaseImage
      *
      * @param string|resource|ImageInterface $image
      * @return ImageInterface
-     * @throws \yii\base\InvalidParamException
+     * @throws \yii\base\InvalidArgumentException
      * @since 2.1.0
      */
     protected static function ensureImageInterfaceInstance($image)
@@ -144,7 +144,7 @@ class BaseImage
             return static::getImagine()->open(Yii::getAlias($image));
         }
 
-        throw new InvalidParamException('File should be either ImageInterface, resource or a string containing file path.');
+        throw new InvalidArgumentException('File should be either ImageInterface, resource or a string containing file path.');
     }
 
     /**
@@ -164,12 +164,12 @@ class BaseImage
      * @param int $height the crop height
      * @param array $start the starting point. This must be an array with two elements representing `x` and `y` coordinates.
      * @return ImageInterface
-     * @throws InvalidParamException if the `$start` parameter is invalid
+     * @throws InvalidArgumentException if the `$start` parameter is invalid
      */
     public static function crop($image, $width, $height, array $start = [0, 0])
     {
         if (!isset($start[0], $start[1])) {
-            throw new InvalidParamException('$start must be an array of two elements.');
+            throw new InvalidArgumentException('$start must be an array of two elements.');
         }
 
         return static::ensureImageInterfaceInstance($image)
@@ -299,12 +299,12 @@ class BaseImage
      * @param string|resource|ImageInterface $watermarkImage either ImageInterface, resource or a string containing watermark file path
      * @param array $start the starting point. This must be an array with two elements representing `x` and `y` coordinates.
      * @return ImageInterface
-     * @throws InvalidParamException if `$start` is invalid
+     * @throws InvalidArgumentException if `$start` is invalid
      */
     public static function watermark($image, $watermarkImage, array $start = [0, 0])
     {
         if (!isset($start[0], $start[1])) {
-            throw new InvalidParamException('$start must be an array of two elements.');
+            throw new InvalidArgumentException('$start must be an array of two elements.');
         }
 
         $img = self::ensureImageInterfaceInstance($image);
@@ -327,12 +327,12 @@ class BaseImage
      * - angle: The angle to use to write the text. Defaults to 0.
      *
      * @return ImageInterface
-     * @throws InvalidParamException if `$fontOptions` is invalid
+     * @throws InvalidArgumentException if `$fontOptions` is invalid
      */
     public static function text($image, $text, $fontFile, array $start = [0, 0], array $fontOptions = [])
     {
         if (!isset($start[0], $start[1])) {
-            throw new InvalidParamException('$start must be an array of two elements.');
+            throw new InvalidArgumentException('$start must be an array of two elements.');
         }
 
         $fontSize = ArrayHelper::getValue($fontOptions, 'size', 12);
@@ -419,7 +419,7 @@ class BaseImage
     protected static function getBox(BoxInterface $sourceBox, $width, $height, $keepAspectRatio = true)
     {
         if ($width === null && $height === null) {
-            throw new InvalidParamException('Width and height cannot be null at same time.');
+            throw new InvalidArgumentException('Width and height cannot be null at same time.');
         }
 
         $ratio = $sourceBox->getWidth() / $sourceBox->getHeight();
