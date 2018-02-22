@@ -45,16 +45,15 @@ class BaseImage
     const DRIVER_GMAGICK = 'gmagick';
 
     /**
-     * @var array|string the driver to use. This can be either a single driver name or an array of driver names.
-     * If the latter, the first available driver will be used.
-     */
-    public static $driver = [self::DRIVER_GMAGICK, self::DRIVER_IMAGICK, self::DRIVER_GD2];
-    /**
      * @var ImagineInterface instance.
      */
     private static $_imagine;
 
-
+    /**
+     * @var array|string the driver to use. This can be either a single driver name or an array of driver names.
+     * If the latter, the first available driver will be used.
+     */
+    public static $driver = [self::DRIVER_GMAGICK, self::DRIVER_IMAGICK, self::DRIVER_GD2];
     /**
      * @var string background color to use when creating thumbnails in `ImageInterface::THUMBNAIL_INSET` mode with
      * both width and height specified. Default is white.
@@ -69,6 +68,7 @@ class BaseImage
      * @since 2.0.4
      */
     public static $thumbnailBackgroundAlpha = 100;
+
 
     /**
      * Returns the `Imagine` object that supports various image manipulations.
