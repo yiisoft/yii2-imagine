@@ -5,12 +5,13 @@ namespace yiiunit\imagine;
 use yii\imagine\Image;
 
 /**
- * @group vendor
- * @group imagine
+ * @group gmagick
  */
 class ImageGmagickTest extends AbstractImageTest
 {
-
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp()
     {
         if (!class_exists('Gmagick')) {

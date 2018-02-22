@@ -5,11 +5,13 @@ namespace yiiunit\imagine;
 use yii\imagine\Image;
 
 /**
- * @group vendor
- * @group imagine
+ * @group gd
  */
 class ImageGdTest extends AbstractImageTest
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp()
     {
         if (!function_exists('gd_info')) {

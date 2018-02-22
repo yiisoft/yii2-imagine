@@ -12,11 +12,11 @@ namespace yii\imagine;
  *
  * Example of use:
  *
- * ~~~php
+ * ```php
  * // generate a thumbnail image
  * Image::thumbnail('@webroot/img/test-image.jpg', 120, 120)
  *     ->save(Yii::getAlias('@runtime/thumb-test-image.jpg'), ['quality' => 50]);
- * ~~~
+ * ```
  *
  * @author Antonio Ramirez <amigo.cobos@gmail.com>
  * @author Qiang Xue <qiang.xue@gmail.com>

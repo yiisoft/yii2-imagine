@@ -5,8 +5,7 @@ namespace yiiunit\imagine;
 use yii\imagine\Image;
 
 /**
- * @group vendor
- * @group imagine
+ * @group imagick
  */
 class ImageImagickTest extends AbstractImageTest
 {
