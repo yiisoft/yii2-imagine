@@ -1,10 +1,10 @@
 Yii Framework 2 imagine extension Change Log
 ================================================
 
-2.1.2 under development
+2.2.0 under development
 -----------------------
 
-- no changes in this release.
+- Chg: Required Yii framework version has been raised to '2.1.0' (klimov-paul)
 
 
 2.1.1 February 22, 2018

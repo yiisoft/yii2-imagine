@@ -27,17 +27,13 @@
         }
     },
     "autoload-dev": {
-        "psr-4": {"yiiunit\\imagine\\": "tests/"}
+        "psr-4": {
+            "yiiunit\\imagine\\": "tests"
+        }
     },
     "extra": {
         "branch-alias": {
             "dev-master": "2.0.x-dev"
         }
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ]
+    }
 }

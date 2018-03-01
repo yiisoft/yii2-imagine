@@ -6,9 +6,10 @@
 
 ### Additional info
 
-| Q                | A
-| ---------------- | ---
-| Yii version      |
-| Imagine version  |
-| PHP version      |
-| Operating system |
+| Q                   | A
+| ------------------- | ---
+| Yii version         |
+| Yii Imagine version |
+| Imagine version     |
+| PHP version         |
+| Operating system    |
