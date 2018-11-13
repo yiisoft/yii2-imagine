@@ -2,7 +2,7 @@
 ============================
 
 Расширение добавляет основные функции для работы с изображениями, а также является обёрткой библиотеки обработки изображений 
-[Imagine](http://imagine.readthedocs.org/) для [Yii framework 2.0](http://www.yiiframework.com)
+[Imagine](http://imagine.readthedocs.org/) для фреймворка [Yii 2.0](http://www.yiiframework.com)
 
 Как начать
 ----------
