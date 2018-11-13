@@ -17,4 +17,4 @@ php composer.phar require --prefer-dist yiisoft/yii2-imagine
 "yiisoft/yii2-imagine": "~2.1.0"
 ```
 
-в секцию require вашего composer.json.
+в секцию **require** вашего composer.json.
