@@ -11,7 +11,7 @@
 ```php
 use yii\imagine\Image;
 
-// frame, rotate and save an image
+// сделать рамку, повернуть и сохранить изображение
 Image::frame('path/to/image.jpg', 5, '666', 0)
     ->rotate(-8)
     ->save('path/to/destination/image.jpg', ['jpeg_quality' => 50]);
@@ -23,7 +23,7 @@ Image::frame('path/to/image.jpg', 5, '666', 0)
 - `Image::autorotate()` - автоматически повернуть изображение, основываясь на метаданных EXIF.
 - `Image::thumbnail()` - создать превью-изображение.
 - `Image::resize()` - изменить размер изображения.
-- `Image::watermark()` - добавить текст на существующее изображение.
+- `Image::watermark()` - добавить водяной знак на существующее изображение.
 - `Image::text()` - добавить текст на существующее изображение.
 - `Image::frame()` - добавить рамку вокруг изображения.
 
