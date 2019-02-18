@@ -7,22 +7,8 @@ php:
   - 7.0
   - 7.1
   - 7.2
+  - 7.3
 
-matrix:
-  fast_finish: true
-  allow_failures:
-    - php: hhvm
-  include:
-  - php: hhvm
-    sudo: true
-    dist: trusty
-    group: edge
-    cache:
-      directories: "$HOME/.composer/cache"
-    before_install:
-    - wget https://phar.phpunit.de/phpunit-4.5.1.phar
-    script:
-    - php phpunit-4.5.1.phar --verbose $PHPUNIT_FLAGS
 sudo: false
 
 # cache vendor dirs
@@ -35,22 +21,16 @@ install:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - travis_retry composer install --prefer-dist --no-interaction
   # install php extensions
-  - |
-    if (php --version | grep -i HipHop > /dev/null); then
-      echo "Skipping imagick and gmagick tests on HHVM"
-    else
-      pear config-set preferred_state beta
-      printf "\n" | pecl install imagick
-      # gmagick is not installed on travis currently
-      #printf "\n" | pecl install gmagick
-    fi
+  - pear config-set preferred_state beta
+  - printf "\n" | pecl install imagick
+  # gmagick is not installed on travis currently
+  #printf "\n" | pecl install gmagick
 
 before_script:
   - |
     if [ $TRAVIS_PHP_VERSION = '5.6' ]; then
       PHPUNIT_FLAGS="--coverage-clover=coverage.clover"
     fi
-  - composer require --prefer-dist --no-interaction 'phpunit/phpunit:4.8.27|~5.7.21|^6.2'
 
 script:
   - vendor/bin/phpunit $PHPUNIT_FLAGS
