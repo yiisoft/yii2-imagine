@@ -4,7 +4,7 @@ Yii Framework 2 imagine extension Change Log
 2.2.0 under development
 -----------------------
 
-- Enh #54: Updated imagine/imagine version constrait to allow using 1.1.0 (samdark)
+- Enh #54: Updated imagine/imagine version constraint to allow using 1.1.0 (samdark)
 
 
 2.1.1 February 22, 2018
