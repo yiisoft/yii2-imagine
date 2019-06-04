@@ -8,13 +8,13 @@
 Для этого запустите команду
 
 ```
-php composer.phar require --prefer-dist yiisoft/yii2-imagine
+composer require --prefer-dist yiisoft/yii2-imagine
 ```
 
 или добавьте
 
 ```
-"yiisoft/yii2-imagine": "~2.1.0"
+"yiisoft/yii2-imagine": "~2.2.0"
 ```
 
 в секцию **require** вашего composer.json.
