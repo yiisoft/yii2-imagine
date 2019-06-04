@@ -49,6 +49,7 @@ class BaseImage
      */
     private static $_imagine;
 
+
     /**
      * @var array|string the driver to use. This can be either a single driver name or an array of driver names.
      * If the latter, the first available driver will be used.
@@ -68,7 +69,6 @@ class BaseImage
      * @since 2.0.4
      */
     public static $thumbnailBackgroundAlpha = 100;
-
 
     /**
      * Returns the `Imagine` object that supports various image manipulations.
