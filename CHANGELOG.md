@@ -1,6 +1,12 @@
 Yii Framework 2 imagine extension Change Log
 ================================================
 
+2.2.1 under development
+-----------------------
+
+- no changes in this release.
+
+
 2.2.0 June 04, 2019
 -------------------
 
