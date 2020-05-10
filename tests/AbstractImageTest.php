@@ -121,6 +121,44 @@ abstract class AbstractImageTest extends TestCase
         $this->assertEquals(120, $img->getSize()->getHeight());
     }
 
+    public function testThumbnailWithUpscaleFlag()
+    {
+        // THUMBNAIL_OUTBOUND mode.
+        $img = Image::thumbnail($this->imageFile, 700, 700, ImageInterface::THUMBNAIL_OUTBOUND | ImageInterface::THUMBNAIL_FLAG_UPSCALE);
+
+        $this->assertEquals(700, $img->getSize()->getWidth());
+        $this->assertEquals(700, $img->getSize()->getHeight());
+
+        // THUMBNAIL_INSET mode. Missing thumbnail part is filled with background so dimensions are exactly
+        // the ones specified.
+        $img = Image::thumbnail($this->imageFile, 700, 700, ImageInterface::THUMBNAIL_INSET | ImageInterface::THUMBNAIL_FLAG_UPSCALE);
+
+        $this->assertEquals(700, $img->getSize()->getWidth());
+        $this->assertEquals(700, $img->getSize()->getHeight());
+
+        // Height omitted and is calculated based on original image aspect ratio regardless of the mode.
+        $img = Image::thumbnail($this->imageFile, 840, null, ImageInterface::THUMBNAIL_OUTBOUND | ImageInterface::THUMBNAIL_FLAG_UPSCALE);
+
+        $this->assertEquals(840, $img->getSize()->getWidth());
+        $this->assertEquals(432, $img->getSize()->getHeight());
+
+        $img = Image::thumbnail($this->imageFile, 840, null, ImageInterface::THUMBNAIL_INSET | ImageInterface::THUMBNAIL_FLAG_UPSCALE);
+
+        $this->assertEquals(840, $img->getSize()->getWidth());
+        $this->assertEquals(432, $img->getSize()->getHeight());
+
+        // Width omitted and is calculated based on original image aspect ratio regardless of the mode.
+        $img = Image::thumbnail($this->imageFile, null, 540, ImageInterface::THUMBNAIL_OUTBOUND | ImageInterface::THUMBNAIL_FLAG_UPSCALE);
+
+        $this->assertEquals(1050, $img->getSize()->getWidth());
+        $this->assertEquals(540, $img->getSize()->getHeight());
+
+        $img = Image::thumbnail($this->imageFile, null, 540, ImageInterface::THUMBNAIL_INSET | ImageInterface::THUMBNAIL_FLAG_UPSCALE);
+
+        $this->assertEquals(1050, $img->getSize()->getWidth());
+        $this->assertEquals(540, $img->getSize()->getHeight());
+    }
+
     /**
      * @dataProvider providerResize
      */
@@ -158,7 +196,7 @@ abstract class AbstractImageTest extends TestCase
         Image::$driver = 'fake-driver';
         Image::getImagine();
     }
-    
+
     public function testIfAutoRotateThrowsException()
     {
         $img = Image::thumbnail($this->imageFile, 120, 120);
