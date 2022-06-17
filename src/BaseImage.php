@@ -390,7 +390,7 @@ class BaseImage
      *
      * @since 2.0.4
      */
-    protected static function getThumbnailBox(BoxInterface $sourceBox, $width, $height)
+    public static function getThumbnailBox(BoxInterface $sourceBox, $width, $height)
     {
         if ($width !== null && $height !== null) {
             return new Box($width, $height);
@@ -417,7 +417,7 @@ class BaseImage
      *
      * @since 2.1.1
      */
-    protected static function getBox(BoxInterface $sourceBox, $width, $height, $keepAspectRatio = true)
+    public static function getBox(BoxInterface $sourceBox, $width, $height, $keepAspectRatio = true)
     {
         if ($width === null && $height === null) {
             throw new InvalidParamException('Width and height cannot be null at same time.');
@@ -452,7 +452,7 @@ class BaseImage
      * @param BoxInterface $destinationBox
      * @return bool
      */
-    protected static function isUpscaling(BoxInterface $sourceBox, BoxInterface $destinationBox)
+    public static function isUpscaling(BoxInterface $sourceBox, BoxInterface $destinationBox)
     {
         return ($sourceBox->getWidth() <= $destinationBox->getWidth() && $sourceBox->getHeight() <= $destinationBox->getHeight()) || (!$destinationBox->getWidth() && !$destinationBox->getHeight());
     }
