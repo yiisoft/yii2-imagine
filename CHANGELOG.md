@@ -1,8 +1,8 @@
 Yii Framework 2 imagine extension Change Log
 ================================================
 
-2.3.1 under development
------------------------
+2.3.1 September 04, 2022
+------------------------
 
 - Enh #70: Make protected static methods `getThumbnailBox()`, `getBox()` and `isUpscaling()` public (nadar)
 
