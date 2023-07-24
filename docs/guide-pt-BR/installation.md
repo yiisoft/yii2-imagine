@@ -3,7 +3,7 @@ Instalação
 
 ## Instalando através do composer
 
-A maneira recomendada para instalar esta extensão é através do [composer](http://getcomposer.org/download/).
+A maneira recomendada para instalar esta extensão é através do [composer](https://getcomposer.org/download/).
 
 Então execute
 

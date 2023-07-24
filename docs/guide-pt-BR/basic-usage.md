@@ -1,7 +1,7 @@
 Utilização Básica
 ===========
 
-Esta extensão é um wrapper para o [Imagine](http://imagine.readthedocs.org/) e também adiciona o mais comumente usado
+Esta extensão é um wrapper para o [Imagine](https://imagine.readthedocs.org/) e também adiciona o mais comumente usado
 métodos de manipulação de imagem. Certifique-se de estar familiarizado com a biblioteca 'Imagine' antes de usar esta extensão.
 
 O exemplo a seguir mostra como usar esta extensão:

@@ -1,8 +1,8 @@
 Imagine Extension for Yii 2
 ===========================
 
-This extension adds most common image functions and also acts as a wrapper to [Imagine](http://imagine.readthedocs.org/)
-image manipulation library for [Yii framework 2.0](http://www.yiiframework.com).
+This extension adds most common image functions and also acts as a wrapper to [Imagine](https://imagine.readthedocs.org/)
+image manipulation library for [Yii framework 2.0](https://www.yiiframework.com).
 
 Getting Started
 ---------------
