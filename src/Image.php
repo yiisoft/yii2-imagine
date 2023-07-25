@@ -8,7 +8,7 @@
 namespace yii\imagine;
 
 /**
- * Image implements most commonly used image manipulation functions using the [Imagine library](http://imagine.readthedocs.org/).
+ * Image implements most commonly used image manipulation functions using the [Imagine library](https://imagine.readthedocs.org/).
  *
  * Example of use:
  *
