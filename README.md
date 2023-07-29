@@ -1,13 +1,13 @@
 <p align="center">
-    <a href="http://imagine.readthedocs.org/" target="_blank" rel="external">
-        <img src="http://imagine.readthedocs.io/en/latest/_static/logo.png" height="100px">
+    <a href="https://imagine.readthedocs.org/" target="_blank" rel="external">
+        <img src="https://imagine.readthedocs.io/en/latest/_static/logo.png" height="100px">
     </a>
     <h1 align="center">Imagine Extension for Yii 2</h1>
     <br>
 </p>
 
-This extension adds most common image functions and also acts as a wrapper to [Imagine](http://imagine.readthedocs.org/)
-image manipulation library for [Yii framework 2.0](http://www.yiiframework.com).
+This extension adds most common image functions and also acts as a wrapper to [Imagine](https://imagine.readthedocs.org/)
+image manipulation library for [Yii framework 2.0](https://www.yiiframework.com).
 
 For license information check the [LICENSE](LICENSE.md)-file.
 
@@ -19,7 +19,7 @@ For license information check the [LICENSE](LICENSE.md)-file.
 Installation
 ------------
 
-The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+The preferred way to install this extension is through [composer](https://getcomposer.org/download/).
 
 Either run
 
@@ -39,7 +39,7 @@ to the `require` section of your composer.json.
 Basic Usage
 -----------
 
-This extension is a wrapper to the [Imagine](http://imagine.readthedocs.org/) and also adds the most commonly used
+This extension is a wrapper to the [Imagine](https://imagine.readthedocs.org/) and also adds the most commonly used
 image manipulation methods.
 
 The following example shows how to use this extension:
