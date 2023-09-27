@@ -7,6 +7,7 @@ use yii\helpers\FileHelper;
 use yii\imagine\Image;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\Point;
+use yii\base\InvalidConfigException;
 
 abstract class AbstractImageTest extends TestCase
 {
@@ -18,7 +19,7 @@ abstract class AbstractImageTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         FileHelper::createDirectory(Yii::getAlias('@yiiunit/imagine/runtime'));
         $this->imageFile = Yii::getAlias('@yiiunit/imagine/data/large.jpg');
@@ -31,7 +32,7 @@ abstract class AbstractImageTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         @unlink($this->runtimeTextFile);
         @unlink($this->runtimeWatermarkFile);
@@ -187,13 +188,13 @@ abstract class AbstractImageTest extends TestCase
         ];
     }
 
-    /**
-     * @expectedException \yii\base\InvalidConfigException
-     */
     public function testShouldThrowExceptionOnDriverInvalidArgument()
     {
         Image::setImagine(null);
         Image::$driver = 'fake-driver';
+
+        $this->expectException(InvalidConfigException::class);
+        $this->expectExceptionMessage('Unknown driver: fake-driver');
         Image::getImagine();
     }
 
