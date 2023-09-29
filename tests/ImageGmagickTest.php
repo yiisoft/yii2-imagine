@@ -12,7 +12,7 @@ class ImageGmagickTest extends AbstractImageTest
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!class_exists('Gmagick')) {
             $this->markTestSkipped('Skipping ImageGmagickTest, Gmagick is not installed');

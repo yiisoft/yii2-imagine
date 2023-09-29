@@ -14,7 +14,12 @@ For license information check the [LICENSE](LICENSE.md)-file.
 [![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-imagine/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-imagine)
 [![Total Downloads](https://poser.pugx.org/yiisoft/yii2-imagine/downloads.png)](https://packagist.org/packages/yiisoft/yii2-imagine)
 [![Build Status](https://github.com/yiisoft/yii2-imagine/workflows/build/badge.svg)](https://github.com/yiisoft/yii2-imagine/actions)
+[![codecov](https://codecov.io/gh/yiisoft/yii2-imagine/graph/badge.svg?token=F1oonww6bw)](https://codecov.io/gh/yiisoft/yii2-imagine)
 
+Requirements
+------------
+
+- PHP 7.3 or higher.
 
 Installation
 ------------
