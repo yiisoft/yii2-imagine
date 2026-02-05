@@ -10,7 +10,6 @@ on:
             - 'README.md'
             - 'CHANGELOG.md'
             - 'LICENSE.md'
-            - 'UPGRADE.md'
             - '.gitignore'
             - '.gitattributes'
             - '.editorconfig'
