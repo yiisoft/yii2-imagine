@@ -6,7 +6,6 @@ use Yii;
 use yii\helpers\FileHelper;
 use yii\imagine\Image;
 use Imagine\Image\ImageInterface;
-use Imagine\Image\Point;
 
 abstract class AbstractImageTest extends TestCase
 {
@@ -18,7 +17,7 @@ abstract class AbstractImageTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         FileHelper::createDirectory(Yii::getAlias('@yiiunit/imagine/runtime'));
         $this->imageFile = Yii::getAlias('@yiiunit/imagine/data/large.jpg');
@@ -31,13 +30,13 @@ abstract class AbstractImageTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         @unlink($this->runtimeTextFile);
         @unlink($this->runtimeWatermarkFile);
     }
 
-    public function testText()
+    public function testText(): void
     {
         if (!$this->isFontTestSupported()) {
             $this->markTestSkipped('Skipping ImageGdTest Gd not installed');
@@ -52,27 +51,25 @@ abstract class AbstractImageTest extends TestCase
 
         $img->save($this->runtimeTextFile);
         $this->assertTrue(file_exists($this->runtimeTextFile));
-
     }
 
-    public function testCrop()
+    public function testCrop(): void
     {
         $point = [20, 20];
         $img = Image::crop($this->imageFile, 100, 100, $point);
 
         $this->assertEquals(100, $img->getSize()->getWidth());
         $this->assertEquals(100, $img->getSize()->getHeight());
-
     }
 
-    public function testWatermark()
+    public function testWatermark(): void
     {
         $img = Image::watermark($this->imageFile, $this->watermarkFile);
         $img->save($this->runtimeWatermarkFile);
         $this->assertTrue(file_exists($this->runtimeWatermarkFile));
     }
 
-    public function testFrame()
+    public function testFrame(): void
     {
         $frameSize = 5;
         $original = Image::getImagine()->open($this->imageFile);
@@ -83,7 +80,7 @@ abstract class AbstractImageTest extends TestCase
         $this->assertEquals($size->getWidth(), $originalSize->getWidth() + ($frameSize * 2));
     }
 
-    public function testThumbnail()
+    public function testThumbnail(): void
     {
         // THUMBNAIL_OUTBOUND mode.
         $img = Image::thumbnail($this->imageFile, 120, 120);
@@ -121,7 +118,7 @@ abstract class AbstractImageTest extends TestCase
         $this->assertEquals(120, $img->getSize()->getHeight());
     }
 
-    public function testThumbnailWithUpscaleFlag()
+    public function testThumbnailWithUpscaleFlag(): void
     {
         // THUMBNAIL_OUTBOUND mode.
         $img = Image::thumbnail($this->imageFile, 700, 700, ImageInterface::THUMBNAIL_OUTBOUND | ImageInterface::THUMBNAIL_FLAG_UPSCALE);
@@ -162,7 +159,7 @@ abstract class AbstractImageTest extends TestCase
     /**
      * @dataProvider providerResize
      */
-    public function testResize($width, $height, $keepAspectRatio, $allowUpscaling, $newWidth, $newHeight)
+    public function testResize($width, $height, $keepAspectRatio, $allowUpscaling, $newWidth, $newHeight): void
     {
         $img = Image::resize($this->imageFile, $width, $height, $keepAspectRatio, $allowUpscaling);
 
@@ -170,7 +167,7 @@ abstract class AbstractImageTest extends TestCase
         $this->assertEquals($newHeight, $img->getSize()->getHeight());
     }
 
-    public function providerResize()
+    public function providerResize(): array
     {
         // [width, height, keepAspectRatio, allowUpscaling, newWidth, newHeight]
         return [
@@ -187,21 +184,19 @@ abstract class AbstractImageTest extends TestCase
         ];
     }
 
-    /**
-     * @expectedException \yii\base\InvalidConfigException
-     */
-    public function testShouldThrowExceptionOnDriverInvalidArgument()
+    public function testShouldThrowExceptionOnDriverInvalidArgument(): void
     {
+        $this->expectException(\yii\base\InvalidConfigException::class);
         Image::setImagine(null);
         Image::$driver = 'fake-driver';
         Image::getImagine();
     }
 
-    public function testIfAutoRotateThrowsException()
+    public function testIfAutoRotateThrowsException(): void
     {
         $img = Image::thumbnail($this->imageFile, 120, 120);
         $this->assertInstanceOf('\Imagine\Image\ImageInterface', Image::autorotate($img));
     }
 
-    abstract protected function isFontTestSupported();
+    abstract protected function isFontTestSupported(): bool;
 }

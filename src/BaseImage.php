@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -34,15 +35,15 @@ class BaseImage
     /**
      * GD2 driver definition for Imagine implementation using the GD library.
      */
-    const DRIVER_GD2 = 'gd2';
+    public const DRIVER_GD2 = 'gd2';
     /**
      * imagick driver definition.
      */
-    const DRIVER_IMAGICK = 'imagick';
+    public const DRIVER_IMAGICK = 'imagick';
     /**
      * gmagick driver definition.
      */
-    const DRIVER_GMAGICK = 'gmagick';
+    public const DRIVER_GMAGICK = 'gmagick';
 
     /**
      * @var ImagineInterface instance.

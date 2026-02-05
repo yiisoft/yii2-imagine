@@ -12,7 +12,7 @@ class ImageGdTest extends AbstractImageTest
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!function_exists('gd_info')) {
             $this->markTestSkipped('Skipping ImageGdTest, Gd not installed');
@@ -23,7 +23,7 @@ class ImageGdTest extends AbstractImageTest
         }
     }
 
-    protected function isFontTestSupported()
+    protected function isFontTestSupported(): bool
     {
         $infos = gd_info();
 
