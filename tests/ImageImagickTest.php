@@ -12,7 +12,7 @@ class ImageImagickTest extends AbstractImageTest
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!class_exists('Imagick')) {
             $this->markTestSkipped('Skipping ImageImagickTest, Imagick is not installed');
@@ -25,7 +25,7 @@ class ImageImagickTest extends AbstractImageTest
         }
     }
 
-    protected function isFontTestSupported()
+    protected function isFontTestSupported(): bool
     {
         return true;
     }

@@ -1,0 +1,259 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method yii\\imagine\\BaseImage\:\:crop\(\) has parameter \$start with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/BaseImage.php
+
+		-
+			message: '#^Method yii\\imagine\\BaseImage\:\:setImagine\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: src/BaseImage.php
+
+		-
+			message: '#^Method yii\\imagine\\BaseImage\:\:text\(\) has parameter \$fontOptions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/BaseImage.php
+
+		-
+			message: '#^Method yii\\imagine\\BaseImage\:\:text\(\) has parameter \$start with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/BaseImage.php
+
+		-
+			message: '#^Method yii\\imagine\\BaseImage\:\:watermark\(\) has parameter \$start with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/BaseImage.php
+
+		-
+			message: '#^Parameter \#1 \$width of class Imagine\\Image\\Box constructor expects int, float given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/BaseImage.php
+
+		-
+			message: '#^Parameter \#1 \$x of class Imagine\\Image\\Point constructor expects int, float\|int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/BaseImage.php
+
+		-
+			message: '#^Parameter \#2 \$alpha of method Imagine\\Image\\Palette\\RGB\:\:color\(\) expects int\|null, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/BaseImage.php
+
+		-
+			message: '#^Parameter \#2 \$font of method Imagine\\Draw\\DrawerInterface\:\:text\(\) expects Imagine\\Image\\AbstractFont, Imagine\\Image\\FontInterface given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/BaseImage.php
+
+		-
+			message: '#^Parameter \#2 \$height of class Imagine\\Image\\Box constructor expects int, float given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/BaseImage.php
+
+		-
+			message: '#^Parameter \#2 \$height of class Imagine\\Image\\Box constructor expects int, float\|int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/BaseImage.php
+
+		-
+			message: '#^Parameter \#2 \$y of class Imagine\\Image\\Point constructor expects int, float\|int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/BaseImage.php
+
+		-
+			message: '#^Property yii\\imagine\\BaseImage\:\:\$driver type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: src/BaseImage.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: src/BaseImage.php
+
+		-
+			message: '#^Result of && is always true\.$#'
+			identifier: booleanAnd.alwaysTrue
+			count: 1
+			path: src/BaseImage.php
+
+		-
+			message: '#^Static property yii\\imagine\\BaseImage\:\:\$thumbnailBackgroundAlpha \(string\) does not accept default value of type int\.$#'
+			identifier: property.defaultValue
+			count: 1
+			path: src/BaseImage.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between int and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 2
+			path: src/BaseImage.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between int and null will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 6
+			path: src/BaseImage.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: src/BaseImage.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertInstanceOf\(\) with ''\\\\Imagine\\\\Image…'' and Imagine\\Image\\ImageInterface will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/AbstractImageTest.php
+
+		-
+			message: '#^Method yiiunit\\imagine\\AbstractImageTest\:\:providerResize\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/AbstractImageTest.php
+
+		-
+			message: '#^Method yiiunit\\imagine\\AbstractImageTest\:\:testResize\(\) has parameter \$allowUpscaling with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/AbstractImageTest.php
+
+		-
+			message: '#^Method yiiunit\\imagine\\AbstractImageTest\:\:testResize\(\) has parameter \$height with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/AbstractImageTest.php
+
+		-
+			message: '#^Method yiiunit\\imagine\\AbstractImageTest\:\:testResize\(\) has parameter \$keepAspectRatio with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/AbstractImageTest.php
+
+		-
+			message: '#^Method yiiunit\\imagine\\AbstractImageTest\:\:testResize\(\) has parameter \$newHeight with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/AbstractImageTest.php
+
+		-
+			message: '#^Method yiiunit\\imagine\\AbstractImageTest\:\:testResize\(\) has parameter \$newWidth with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/AbstractImageTest.php
+
+		-
+			message: '#^Method yiiunit\\imagine\\AbstractImageTest\:\:testResize\(\) has parameter \$width with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/AbstractImageTest.php
+
+		-
+			message: '#^Parameter \#1 \$imagine of static method yii\\imagine\\BaseImage\:\:setImagine\(\) expects Imagine\\Image\\ImagineInterface, null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/AbstractImageTest.php
+
+		-
+			message: '#^Parameter \#2 \$width of static method yii\\imagine\\BaseImage\:\:thumbnail\(\) expects int, null given\.$#'
+			identifier: argument.type
+			count: 4
+			path: tests/AbstractImageTest.php
+
+		-
+			message: '#^Parameter \#3 \$height of static method yii\\imagine\\BaseImage\:\:thumbnail\(\) expects int, null given\.$#'
+			identifier: argument.type
+			count: 4
+			path: tests/AbstractImageTest.php
+
+		-
+			message: '#^Property yiiunit\\imagine\\AbstractImageTest\:\:\$imageFile has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: tests/AbstractImageTest.php
+
+		-
+			message: '#^Property yiiunit\\imagine\\AbstractImageTest\:\:\$runtimeTextFile has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: tests/AbstractImageTest.php
+
+		-
+			message: '#^Property yiiunit\\imagine\\AbstractImageTest\:\:\$runtimeWatermarkFile has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: tests/AbstractImageTest.php
+
+		-
+			message: '#^Property yiiunit\\imagine\\AbstractImageTest\:\:\$watermarkFile has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: tests/AbstractImageTest.php
+
+		-
+			message: '#^Parameter \#1 \$imagine of static method yii\\imagine\\BaseImage\:\:setImagine\(\) expects Imagine\\Image\\ImagineInterface, null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/ImageGdTest.php
+
+		-
+			message: '#^Parameter \#1 \$imagine of static method yii\\imagine\\BaseImage\:\:setImagine\(\) expects Imagine\\Image\\ImagineInterface, null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/ImageGmagickTest.php
+
+		-
+			message: '#^Parameter \#1 \$imagine of static method yii\\imagine\\BaseImage\:\:setImagine\(\) expects Imagine\\Image\\ImagineInterface, null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/ImageImagickTest.php
+
+		-
+			message: '#^Method yiiunit\\imagine\\TestCase\:\:mockApplication\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: '#^Method yiiunit\\imagine\\TestCase\:\:mockApplication\(\) has parameter \$config with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: '#^Method yiiunit\\imagine\\TestCase\:\:mockWebApplication\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: '#^Method yiiunit\\imagine\\TestCase\:\:mockWebApplication\(\) has parameter \$appClass with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: '#^Method yiiunit\\imagine\\TestCase\:\:mockWebApplication\(\) has parameter \$config with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: '#^Static property yii\\BaseYii\<yii\\web\\IdentityInterface\>\:\:\$app \(yii\\console\\Application\|yii\\web\\Application\<yii\\web\\IdentityInterface\>\) does not accept null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: tests/TestCase.php

@@ -25,8 +25,10 @@ composer.phar
 # phpunit
 phpunit.phar
 /phpunit.xml
+.phpunit.result.cache
+coverage.xml
+
 /tests/runtime
 /tests/data/config.local.php
 /tests/docker
 /tests/dockerids
-

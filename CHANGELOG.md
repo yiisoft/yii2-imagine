@@ -1,10 +1,12 @@
 Yii Framework 2 imagine extension Change Log
 ================================================
 
-2.3.2 under development
+3.0.0 under development
 -----------------------
 
-- no changes in this release.
+- Enh #: Applying Yii2 coding standards (@s1lver)
+- Enh #: Raise min version to PHP 7.4 (@s1lver)
+- Enh #: Raise min version `imagine/imagine` to 1.5 (@s1lver)
 
 
 2.3.1 September 04, 2022
