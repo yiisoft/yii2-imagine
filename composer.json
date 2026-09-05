@@ -26,7 +26,9 @@
         "yiisoft/yii2-coding-standards": "~3.0",
         "phpunit/phpunit": "^9.6",
         "phpstan/phpstan": "^2.1",
-        "phpstan/phpstan-phpunit": "^2.0"
+        "phpstan/phpstan-phpunit": "^2.0",
+        "rector/rector": "^2.6",
+        "mspirkov/yii2-rector": "^0.1"
     },
     "autoload": {
         "psr-4": {
@@ -48,5 +50,12 @@
         "allow-plugins": {
             "yiisoft/yii2-composer": true
         }
+    },
+    "scripts": {
+        "cs": "./vendor/bin/phpcs",
+        "cs-fix": "./vendor/bin/phpcbf",
+        "static": "./vendor/bin/phpstan --memory-limit=-1",
+        "tests": "./vendor/bin/phpunit",
+        "rector": "./vendor/bin/rector"
     }
 }
