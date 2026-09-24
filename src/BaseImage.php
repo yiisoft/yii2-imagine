@@ -50,7 +50,6 @@ class BaseImage
      */
     private static $_imagine;
 
-
     /**
      * @var array|string the driver to use. This can be either a single driver name or an array of driver names.
      * If the latter, the first available driver will be used.

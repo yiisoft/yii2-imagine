@@ -32,3 +32,7 @@ coverage.xml
 /tests/data/config.local.php
 /tests/docker
 /tests/dockerids
+
+# PHP CS Fixer
+.php-cs-fixer.php
+.php-cs-fixer.cache
